@@ -114,6 +114,7 @@ class _$_BodyParts extends _BodyParts {
         const DeepCollectionEquality().hash(MACRO_BP_UPPER_ARM),
         const DeepCollectionEquality().hash(MACRO_BP_UPPER_ARM),
         const DeepCollectionEquality().hash(MACRO_BP_FOREARM),
+        const DeepCollectionEquality().hash(MACRO_BP_FOREARM),
         const DeepCollectionEquality().hash(MACRO_BP_CHEST),
         const DeepCollectionEquality().hash(MACRO_BP_ABDOMEN),
         const DeepCollectionEquality().hash(MACRO_BP_UPPER_LEG),
@@ -135,6 +136,8 @@ class _$_BodyParts extends _BodyParts {
                 .equals(other.MACRO_BP_NECK, MACRO_BP_NECK) &&
             const DeepCollectionEquality()
                 .equals(other.MACRO_BP_UPPER_ARM, MACRO_BP_UPPER_ARM) &&
+            const DeepCollectionEquality()
+                .equals(other.MACRO_BP_FOREARM, MACRO_BP_FOREARM) &&
             const DeepCollectionEquality()
                 .equals(other.MACRO_BP_CHEST, MACRO_BP_CHEST) &&
             const DeepCollectionEquality()

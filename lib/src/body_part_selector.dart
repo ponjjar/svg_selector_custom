@@ -77,8 +77,7 @@ class BodyPartSelector extends StatelessWidget {
               context: context,
               selectedColor: selectedColor ?? colorScheme.secondary,
               unselectedColor: unselectedColor ?? colorScheme.surface,
-              selectedOutlineColor:
-                  selectedOutlineColor ?? colorScheme.onSecondary,
+              selectedOutlineColor: selectedOutlineColor ?? colorScheme.primary,
               unselectedOutlineColor:
                   unselectedOutlineColor ?? colorScheme.inverseSurface,
             ),

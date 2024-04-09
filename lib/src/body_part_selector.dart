@@ -8,6 +8,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:touchable/touchable.dart';
 
 class BodyPartSelector extends StatelessWidget {
+  final BodySide side;
+
+  final BodyParts bodyParts;
+  final void Function(BodyParts bodyParts)? onSelectionUpdated;
+  final bool mirrored;
+
+  final bool singleSelection;
+  final Color? selectedColor;
+
+  final Color? unselectedColor;
+  final Color? selectedOutlineColor;
+  final Color? unselectedOutlineColor;
   const BodyPartSelector({
     super.key,
     required this.side,
@@ -20,18 +32,6 @@ class BodyPartSelector extends StatelessWidget {
     this.selectedOutlineColor,
     this.unselectedOutlineColor,
   });
-
-  final BodySide side;
-  final BodyParts bodyParts;
-  final void Function(BodyParts bodyParts)? onSelectionUpdated;
-
-  final bool mirrored;
-  final bool singleSelection;
-
-  final Color? selectedColor;
-  final Color? unselectedColor;
-  final Color? selectedOutlineColor;
-  final Color? unselectedOutlineColor;
 
   @override
   Widget build(BuildContext context) {
@@ -63,22 +63,24 @@ class BodyPartSelector extends StatelessWidget {
             painter: _BodyPainter(
               root: drawable,
               bodyParts: bodyParts,
-              // onTap: (s) => 
+              // onTap: (s) =>
               // onSelectionUpdated?.call(
               //   bodyParts.withToggledId(s, mirror: mirrored),
               // ),
               onTap: (s) {
-  // print('Selected ID: $bodyParts');
-  onSelectionUpdated?.call(
-    bodyParts.withToggledId(s, mirror: mirrored,singleSelection : singleSelection),
-  );
-},
+                // print('Selected ID: $bodyParts');
+                onSelectionUpdated?.call(
+                  bodyParts.withToggledId(s,
+                      mirror: mirrored, singleSelection: singleSelection),
+                );
+              },
               context: context,
-              selectedColor: selectedColor ?? colorScheme.inversePrimary,
-              unselectedColor: unselectedColor ?? colorScheme.inverseSurface,
-              selectedOutlineColor: selectedOutlineColor ?? colorScheme.primary,
+              selectedColor: selectedColor ?? colorScheme.primary,
+              unselectedColor: unselectedColor ?? colorScheme.surface,
+              selectedOutlineColor:
+                  selectedOutlineColor ?? colorScheme.secondary,
               unselectedOutlineColor:
-                  unselectedOutlineColor ?? colorScheme.onInverseSurface,
+                  unselectedOutlineColor ?? colorScheme.inverseSurface,
             ),
           ),
         ),
@@ -88,6 +90,16 @@ class BodyPartSelector extends StatelessWidget {
 }
 
 class _BodyPainter extends CustomPainter {
+  final DrawableRoot root;
+
+  final BuildContext context;
+  final void Function(String) onTap;
+  final BodyParts bodyParts;
+  final Color selectedColor;
+  final Color unselectedColor;
+  final Color unselectedOutlineColor;
+  final Color selectedOutlineColor;
+
   _BodyPainter({
     required this.root,
     required this.bodyParts,
@@ -98,24 +110,6 @@ class _BodyPainter extends CustomPainter {
     required this.unselectedOutlineColor,
     required this.selectedOutlineColor,
   });
-
-  final DrawableRoot root;
-  final BuildContext context;
-  final void Function(String) onTap;
-  final BodyParts bodyParts;
-  final Color selectedColor;
-  final Color unselectedColor;
-  final Color unselectedOutlineColor;
-
-  final Color selectedOutlineColor;
-
-  bool isSelected(String key) {
-    final selections = bodyParts.toJson();
-    if (selections.containsKey(key) && selections[key]!) {
-      return true;
-    }
-    return false;
-  }
 
   void drawBodyParts({
     required TouchyCanvas touchyCanvas,
@@ -146,6 +140,14 @@ class _BodyPainter extends CustomPainter {
           ..style = PaintingStyle.stroke,
       );
     }
+  }
+
+  bool isSelected(String key) {
+    final selections = bodyParts.toJson();
+    if (selections.containsKey(key) && selections[key]!) {
+      return true;
+    }
+    return false;
   }
 
   @override

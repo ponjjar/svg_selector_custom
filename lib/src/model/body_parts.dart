@@ -5,64 +5,51 @@ part 'body_parts.g.dart';
 
 @freezed
 class BodyParts with _$BodyParts {
-  const BodyParts._();
+  static const all = BodyParts(
+    MACRO_BP_FACE: true,
+    MACRO_BP_NECK: true,
+    MACRO_BP_UPPER_ARM: true,
+    MACRO_BP_FOREARM: true,
+    MACRO_BP_CHEST: true,
+    MACRO_BP_ABDOMEN: true,
+    MACRO_BP_UPPER_LEG: true,
+    MACRO_BP_LOWER_LEG: true,
+    MACRO_BP_HIP: true,
+  );
 
   const factory BodyParts({
-    @Default(false) bool head,
-    @Default(false) bool neck,
-    @Default(false) bool leftShoulder,
-    @Default(false) bool leftUpperArm,
-    @Default(false) bool leftElbow,
-    @Default(false) bool leftLowerArm,
-    @Default(false) bool leftHand,
-    @Default(false) bool rightShoulder,
-    @Default(false) bool rightUpperArm,
-    @Default(false) bool rightElbow,
-    @Default(false) bool rightLowerArm,
-    @Default(false) bool rightHand,
-    @Default(false) bool upperBody,
-    @Default(false) bool lowerBody,
-    @Default(false) bool leftUpperLeg,
-    @Default(false) bool leftKnee,
-    @Default(false) bool leftLowerLeg,
-    @Default(false) bool leftFoot,
-    @Default(false) bool rightUpperLeg,
-    @Default(false) bool rightKnee,
-    @Default(false) bool rightLowerLeg,
-    @Default(false) bool rightFoot,
-    @Default(false) bool abdomen,
-    @Default(false) bool vestibular,
-  }) = _BodyParts;
+    // ignore: non_constant_identifier_names
+    @Default(false) bool MACRO_BP_FACE,
 
-  static const all = BodyParts(
-    head: true,
-    neck: true,
-    leftShoulder: true,
-    leftUpperArm: true,
-    leftElbow: true,
-    leftLowerArm: true,
-    leftHand: true,
-    rightShoulder: true,
-    rightUpperArm: true,
-    rightElbow: true,
-    rightLowerArm: true,
-    rightHand: true,
-    upperBody: true,
-    lowerBody: true,
-    leftUpperLeg: true,
-    leftKnee: true,
-    leftLowerLeg: true,
-    leftFoot: true,
-    rightUpperLeg: true,
-    rightKnee: true,
-    rightLowerLeg: true,
-    rightFoot: true,
-    abdomen: true,
-    vestibular: true,
-  );
+    // ignore: non_constant_identifier_names
+    @Default(false) bool MACRO_BP_NECK,
+
+    // ignore: non_constant_identifier_names
+    @Default(false) bool MACRO_BP_UPPER_ARM,
+
+    // ignore: non_constant_identifier_names
+    @Default(false) bool MACRO_BP_FOREARM,
+
+    // ignore: non_constant_identifier_names
+    @Default(false) bool MACRO_BP_CHEST,
+
+    // ignore: non_constant_identifier_names
+    @Default(false) bool MACRO_BP_ABDOMEN,
+
+    // ignore: non_constant_identifier_names
+    @Default(false) bool MACRO_BP_UPPER_LEG,
+
+    // ignore: non_constant_identifier_names
+    @Default(false) bool MACRO_BP_LOWER_LEG,
+
+    // ignore: non_constant_identifier_names
+    @Default(false) bool MACRO_BP_HIP,
+  }) = _BodyParts;
 
   factory BodyParts.fromJson(Map<String, dynamic> json) =>
       _$BodyPartsFromJson(json);
+
+  const BodyParts._();
 
   /// Toggles the BodyPart with the given [id].
   ///
@@ -76,9 +63,9 @@ class BodyParts with _$BodyParts {
     if (singleSelection) {
       if (map[id] == true) {
         Set<String> allKeys = map.keys.toSet();
-        allKeys.forEach((key) {
+        for (var key in allKeys) {
           map[key] = true;
-        });
+        }
         map[id] = !map[id];
       }
     } else {

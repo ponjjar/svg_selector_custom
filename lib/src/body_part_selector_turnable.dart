@@ -7,6 +7,12 @@ import 'package:rotation_stage/rotation_stage.dart';
 export 'package:rotation_stage/rotation_stage.dart';
 
 class BodyPartSelectorTurnable extends StatelessWidget {
+  final List<String>? bodypartsID;
+  final BodyParts bodyParts;
+  final Function(BodyParts)? onSelectionUpdated;
+  final bool mirrored;
+  final EdgeInsets padding;
+  final RotationStageLabelData? labelData;
   const BodyPartSelectorTurnable({
     super.key,
     required this.bodyParts,
@@ -14,13 +20,8 @@ class BodyPartSelectorTurnable extends StatelessWidget {
     this.mirrored = false,
     this.padding = EdgeInsets.zero,
     this.labelData,
+    this.bodypartsID,
   });
-
-  final BodyParts bodyParts;
-  final Function(BodyParts)? onSelectionUpdated;
-  final bool mirrored;
-  final EdgeInsets padding;
-  final RotationStageLabelData? labelData;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,19 @@ class BodyPartSelectorTurnable extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: BodyPartSelector(
+            bodypartsID: (bodypartsID != null && bodypartsID!.isNotEmpty)
+                ? bodypartsID!
+                : [
+                    'MACRO_BP_FACE',
+                    'MACRO_BP_NECK',
+                    'MACRO_BP_UPPER_ARM',
+                    'MACRO_BP_FOREARM',
+                    'MACRO_BP_CHEST',
+                    'MACRO_BP_ABDOMEN',
+                    'MACRO_BP_UPPER_LEG',
+                    'MACRO_BP_LOWER_LEG',
+                    'MACRO_BP_HIP',
+                  ],
             side: side.map(
               front: BodySide.front,
               left: BodySide.left,

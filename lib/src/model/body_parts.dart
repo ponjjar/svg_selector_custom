@@ -5,17 +5,17 @@ part 'body_parts.g.dart';
 
 @freezed
 class BodyParts with _$BodyParts {
-  static const all = BodyParts(
-    MACRO_BP_FACE: true,
-    MACRO_BP_NECK: true,
-    MACRO_BP_UPPER_ARM: true,
-    MACRO_BP_FOREARM: true,
-    MACRO_BP_CHEST: true,
-    MACRO_BP_ABDOMEN: true,
-    MACRO_BP_UPPER_LEG: true,
-    MACRO_BP_LOWER_LEG: true,
-    MACRO_BP_HIP: true,
-  );
+  // static const all = BodyParts(
+  //   MACRO_BP_FACE: true,
+  //   MACRO_BP_NECK: true,
+  //   MACRO_BP_UPPER_ARM: true,
+  //   MACRO_BP_FOREARM: true,
+  //   MACRO_BP_CHEST: true,
+  //   MACRO_BP_ABDOMEN: true,
+  //   MACRO_BP_UPPER_LEG: true,
+  //   MACRO_BP_LOWER_LEG: true,
+  //   MACRO_BP_HIP: true,
+  // );
 
   const factory BodyParts({
     // ignore: non_constant_identifier_names

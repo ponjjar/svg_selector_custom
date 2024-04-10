@@ -109,7 +109,7 @@ class BodyPartSelector extends HookWidget {
                 );
               },
               context: context,
-              selectedColor: selectedColor ?? colorScheme.secondary,
+              selectedColor: selectedColor ?? colorScheme.onSecondary,
               unselectedColor: unselectedColor ?? colorScheme.surface,
               selectedOutlineColor: selectedOutlineColor ?? colorScheme.primary,
               unselectedOutlineColor:

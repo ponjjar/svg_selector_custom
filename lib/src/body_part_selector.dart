@@ -133,12 +133,15 @@ class BodyPartSelector extends HookWidget {
               // ),
               onTap: (s) {
                 // print('Selected ID: $bodyParts');
-                onSelectionUpdated.call(handleSelectionUpdated(s,
+                var handleSelection = handleSelectionUpdated(s,
                     macrobodyParts: macrobodyParts,
                     s: s,
                     value: macrobodyParts.value[s]!,
                     mirrored: mirrored,
-                    singleSelection: singleSelection));
+                    singleSelection: singleSelection);
+                macrobodyParts.value = handleSelection;
+
+                onSelectionUpdated.call(handleSelection);
               },
               context: context,
               selectedColor: selectedColor ?? colorScheme.onSecondary,

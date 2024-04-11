@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:body_part_selector/src/model/body_side.dart';
 import 'package:body_part_selector/src/service/svg_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:touchable/touchable.dart';
@@ -22,7 +21,7 @@ class BodyPartSelector extends HookWidget {
   final Color? selectedOutlineColor;
   final Color? unselectedOutlineColor;
   final List<String> bodypartsID;
-  final Future<ByteData>? bodypartsImage;
+  final Map<String, String>? bodypartsImage;
   const BodyPartSelector({
     super.key,
     this.bodypartsImage,
@@ -57,16 +56,15 @@ class BodyPartSelector extends HookWidget {
               (map, id) => map..[id] = false,
             ),
     );
-    final svgBytes = bodypartsImage ??
-        rootBundle.load(
-          side.map(
-            front: "packages/body_part_selector/m_front.svg",
-            left: "packages/body_part_selector/m_left.svg",
-            back: "packages/body_part_selector/m_back.svg",
-            right: "packages/body_part_selector/m_right.svg",
-          ),
-        );
-    final notifier = SvgService.instance(svgBytes).getSide(
+    final svgLoadDrawable = bodypartsImage ??
+        {
+          'front': "packages/body_part_selector/m_front.svg",
+          'left': "packages/body_part_selector/m_left.svg",
+          'back': "packages/body_part_selector/m_back.svg",
+          'right': "packages/body_part_selector/m_right.svg",
+        };
+    SvgService.instance.changeDrawables(svgLoadDrawable);
+    final notifier = SvgService.instance.getSide(
       side,
     );
     return ValueListenableBuilder<DrawableRoot?>(

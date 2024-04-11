@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<bool> _bodyParts = List.filled(9, false);
+  final List<bool> _bodyParts = List.filled(9, false);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: BodyPartSelectorTurnable(
           onSelectionUpdated: (selection) {
             setState(() {
-              _bodyParts = selection;
+              // _bodyParts = selection;
             });
           },
           labelData: const RotationStageLabelData(

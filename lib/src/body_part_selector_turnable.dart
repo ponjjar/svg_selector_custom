@@ -1,7 +1,6 @@
 import 'package:body_part_selector/src/body_part_selector.dart';
 import 'package:body_part_selector/src/model/body_side.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:rotation_stage/rotation_stage.dart';
 
 export 'package:rotation_stage/rotation_stage.dart';
@@ -15,7 +14,7 @@ class BodyPartSelectorTurnable extends StatelessWidget {
   final bool mirrored;
   final EdgeInsets padding;
   final RotationStageLabelData? labelData;
-  final Future<ByteData>? bodypartsImage;
+  final Map<String, String>? bodypartsImage;
   const BodyPartSelectorTurnable(
       {super.key,
       //  required this.bodyParts,

@@ -12,7 +12,7 @@ class BodyPartSelector extends HookWidget {
   final BodySide side;
 
   final BodyParts bodyParts;
-  final void Function(BodyParts bodyParts)? onSelectionUpdated;
+  final void Function(List<bool>)? onSelectionUpdated;
   final bool mirrored;
 
   final bool singleSelection;
@@ -71,6 +71,36 @@ class BodyPartSelector extends HookWidget {
         });
   }
 
+  List<bool> handleSelectionUpdated(String id,
+      {bool mirror = false,
+      bool singleSelection = false,
+      required ValueNotifier macrobodyParts,
+      required String s,
+      required bool value,
+      required bool mirrored}) {
+    if (singleSelection) {
+      macrobodyParts.value.forEach((key, value) {
+        macrobodyParts.value[key] = true;
+      });
+    } else {
+      if (macrobodyParts.value.containsKey(s)) {
+        macrobodyParts.value[s] = !value;
+        if (mirrored) {
+          if (s.contains("left")) {
+            final mirroredId =
+                s.replaceAll("left", "right").replaceAll("Left", "Right");
+            macrobodyParts.value[mirroredId] = macrobodyParts.value[s];
+          } else if (s.contains("right")) {
+            final mirroredId =
+                s.replaceAll("right", "left").replaceAll("Right", "Left");
+            macrobodyParts.value[mirroredId] = macrobodyParts.value[s];
+          }
+        }
+      }
+    }
+    return macrobodyParts.value;
+  }
+
   Widget _buildBody(BuildContext context, DrawableRoot drawable,
       ValueNotifier<Map<String, bool>> macrobodyParts) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -92,21 +122,12 @@ class BodyPartSelector extends HookWidget {
               // ),
               onTap: (s) {
                 // print('Selected ID: $bodyParts');
-                // onSelectionUpdated?.call(
-                //   bodyParts.withToggledId(s,
-                //       mirror: mirrored, singleSelection: singleSelection),
-                // );
-
-                macrobodyParts.value = macrobodyParts.value.map(
-                  (key, value) => MapEntry(
-                    key,
-                    key == s
-                        ? !value
-                        : singleSelection
-                            ? false
-                            : value,
-                  ),
-                );
+                onSelectionUpdated?.call(handleSelectionUpdated(s,
+                    macrobodyParts: macrobodyParts,
+                    s: s,
+                    value: macrobodyParts.value[s]!,
+                    mirrored: mirrored,
+                    singleSelection: singleSelection));
               },
               context: context,
               selectedColor: selectedColor ?? colorScheme.onSecondary,

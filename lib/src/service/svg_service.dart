@@ -44,7 +44,8 @@ class SvgService {
 
   Future<void> _init(Map<String, String> loadDrawables) async {
     await Future.wait([
-      for (final side in BodySide.values) _loadDrawable(side, getSide(side)),
+      for (final side in BodySide.values)
+        _loadDrawable(side, getSide(side, loadDrawables)),
     ]);
   }
 

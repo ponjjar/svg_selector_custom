@@ -140,7 +140,6 @@ class BodyPartSelector extends HookWidget {
                     singleSelection: singleSelection);
 
                 onSelectionUpdated.call(handleSelection);
-                macrobodyParts.value = handleSelection;
               },
               context: context,
               selectedColor: selectedColor ?? colorScheme.onSecondary,

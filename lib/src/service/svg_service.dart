@@ -30,17 +30,18 @@ class SvgService {
     );
   }
 
-  changeDrawables(Map<String, String> newLoadDrawables) {
+  ValueNotifier<DrawableRoot?> getSide(
+      BodySide side, Map<String, String> newLoadDrawables) {
     loadDrawables = newLoadDrawables;
-    _init(newLoadDrawables);
+
+    return side.map(
+      front: _front,
+      left: _left,
+      back: _back,
+      right: _right,
+    );
   }
 
-  ValueNotifier<DrawableRoot?> getSide(BodySide side) => side.map(
-        front: _front,
-        left: _left,
-        back: _back,
-        right: _right,
-      );
   Future<void> _init(Map<String, String> loadDrawables) async {
     await Future.wait([
       for (final side in BodySide.values) _loadDrawable(side, getSide(side)),

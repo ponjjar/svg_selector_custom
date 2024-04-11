@@ -63,10 +63,8 @@ class BodyPartSelector extends HookWidget {
           'back': "packages/body_part_selector/m_back.svg",
           'right': "packages/body_part_selector/m_right.svg",
         };
-    SvgService.instance.changeDrawables(svgLoadDrawable);
-    final notifier = SvgService.instance.getSide(
-      side,
-    );
+    final notifier = SvgService.instance.getSide(side, svgLoadDrawable);
+
     return ValueListenableBuilder<DrawableRoot?>(
         valueListenable: notifier,
         builder: (context, value, _) {
@@ -140,9 +138,9 @@ class BodyPartSelector extends HookWidget {
                     value: macrobodyParts.value[s] ?? false,
                     mirrored: mirrored,
                     singleSelection: singleSelection);
-                macrobodyParts.value = handleSelection;
 
                 onSelectionUpdated.call(handleSelection);
+                macrobodyParts.value = handleSelection;
               },
               context: context,
               selectedColor: selectedColor ?? colorScheme.onSecondary,

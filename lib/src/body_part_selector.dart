@@ -83,31 +83,32 @@ class BodyPartSelector extends HookWidget {
   Map<String, bool> handleSelectionUpdated(String id,
       {bool mirror = false,
       bool singleSelection = false,
-      required ValueNotifier<Map<String, bool>> macrobodyParts,
+      required Map<String, bool> macrobodyParts,
       required String s,
       required bool value,
       required bool mirrored}) {
+    var newMacrobodyParts = macrobodyParts;
     if (singleSelection) {
-      macrobodyParts.value.forEach((key, value) {
-        macrobodyParts.value[key] = true;
+      macrobodyParts.forEach((key, value) {
+        newMacrobodyParts[key] = true;
       });
     } else {
-      if (macrobodyParts.value.containsKey(s)) {
-        macrobodyParts.value[s] = !value;
+      if (macrobodyParts.containsKey(s)) {
+        newMacrobodyParts[s] = !value;
         if (mirrored) {
           if (s.contains("left")) {
             final mirroredId =
                 s.replaceAll("left", "right").replaceAll("Left", "Right");
-            macrobodyParts.value[mirroredId] = macrobodyParts.value[s]!;
+            newMacrobodyParts[mirroredId] = macrobodyParts[s] ?? false;
           } else if (s.contains("right")) {
             final mirroredId =
                 s.replaceAll("right", "left").replaceAll("Right", "Left");
-            macrobodyParts.value[mirroredId] = macrobodyParts.value[s]!;
+            newMacrobodyParts[mirroredId] = macrobodyParts[s] ?? false;
           }
         }
       }
     }
-    return macrobodyParts.value;
+    return macrobodyParts;
   }
 
   Widget _buildBody(BuildContext context, DrawableRoot drawable,
@@ -134,9 +135,9 @@ class BodyPartSelector extends HookWidget {
               onTap: (s) {
                 // print('Selected ID: $bodyParts');
                 var handleSelection = handleSelectionUpdated(s,
-                    macrobodyParts: macrobodyParts,
+                    macrobodyParts: macrobodyParts.value,
                     s: s,
-                    value: macrobodyParts.value[s]!,
+                    value: macrobodyParts.value[s] ?? false,
                     mirrored: mirrored,
                     singleSelection: singleSelection);
                 macrobodyParts.value = handleSelection;

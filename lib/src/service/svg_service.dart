@@ -6,20 +6,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SvgService {
-  SvgService._() {
-    _init();
-  }
-
   static final SvgService _instance = SvgService._();
 
   static SvgService get instance => _instance;
 
   final ValueNotifier<DrawableRoot?> _front = ValueNotifier(null);
+
   final ValueNotifier<DrawableRoot?> _left = ValueNotifier(null);
   final ValueNotifier<DrawableRoot?> _back = ValueNotifier(null);
   final ValueNotifier<DrawableRoot?> _right = ValueNotifier(null);
+  SvgService._() {
+    _init();
+  }
 
-  ValueNotifier<DrawableRoot?> getSide(BodySide side) => side.map(
+  ValueNotifier<DrawableRoot?> getSide(
+          BodySide side, Map<BodySide, String> bodypartsImage) =>
+      side.map(
         front: _front,
         left: _left,
         back: _back,
@@ -28,7 +30,15 @@ class SvgService {
 
   Future<void> _init() async {
     await Future.wait([
-      for (final side in BodySide.values) _loadDrawable(side, getSide(side)),
+      for (final side in BodySide.values)
+        _loadDrawable(
+            side,
+            getSide(side, {
+              BodySide.front: "m_front.svg",
+              BodySide.left: "m_left.svg",
+              BodySide.back: "m_back.svg",
+              BodySide.right: "m_right.svg",
+            })),
     ]);
   }
 

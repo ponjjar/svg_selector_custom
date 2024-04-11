@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:body_part_selector/src/model/body_parts.dart';
 import 'package:body_part_selector/src/model/body_side.dart';
 import 'package:body_part_selector/src/service/svg_service.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ import 'package:touchable/touchable.dart';
 class BodyPartSelector extends HookWidget {
   final BodySide side;
 
-  final BodyParts bodyParts;
+  //final BodyParts bodyParts;
   final void Function(List<bool>)? onSelectionUpdated;
   final bool mirrored;
 
@@ -22,10 +21,11 @@ class BodyPartSelector extends HookWidget {
   final Color? selectedOutlineColor;
   final Color? unselectedOutlineColor;
   final List<String> bodypartsID;
+  final Map<BodySide, String>? bodypartsImage;
   const BodyPartSelector({
     super.key,
+    this.bodypartsImage,
     required this.side,
-    required this.bodyParts,
     required this.onSelectionUpdated,
     this.mirrored = false,
     this.singleSelection = false,
@@ -52,12 +52,20 @@ class BodyPartSelector extends HookWidget {
               'MACRO_BP_HIP': false,
             }
           : bodypartsID.fold<Map<String, bool>>(
-              {},
-              (map, id) => map..[id] = bodyParts.toJson()[id] ?? false,
+              <String, bool>{},
+              (map, id) => map..[id] = false,
             ),
     );
 
-    final notifier = SvgService.instance.getSide(side);
+    final notifier = SvgService.instance.getSide(
+        side,
+        bodypartsImage ??
+            {
+              BodySide.front: "m_front.svg",
+              BodySide.left: "m_left.svg",
+              BodySide.back: "m_back.svg",
+              BodySide.right: "m_right.svg",
+            });
     return ValueListenableBuilder<DrawableRoot?>(
         valueListenable: notifier,
         builder: (context, value, _) {
@@ -109,7 +117,9 @@ class BodyPartSelector extends HookWidget {
       switchInCurve: Curves.easeOutCubic,
       switchOutCurve: Curves.easeOutCubic,
       child: SizedBox.expand(
-        key: ValueKey(bodyParts),
+        key: ValueKey(
+          macrobodyParts.value,
+        ),
         child: CanvasTouchDetector(
           gesturesToOverride: const [GestureType.onTapDown],
           builder: (context) => CustomPaint(

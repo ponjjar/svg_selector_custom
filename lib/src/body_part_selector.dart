@@ -12,7 +12,7 @@ class BodyPartSelector extends HookWidget {
   final BodySide side;
 
   //final BodyParts bodyParts;
-  final void Function(List<bool>)? onSelectionUpdated;
+  final void Function(Map<String, bool>) onSelectionUpdated;
   final bool mirrored;
 
   final bool singleSelection;
@@ -82,10 +82,10 @@ class BodyPartSelector extends HookWidget {
         });
   }
 
-  List<bool> handleSelectionUpdated(String id,
+  Map<String, bool> handleSelectionUpdated(String id,
       {bool mirror = false,
       bool singleSelection = false,
-      required ValueNotifier macrobodyParts,
+      required ValueNotifier<Map<String, bool>> macrobodyParts,
       required String s,
       required bool value,
       required bool mirrored}) {
@@ -100,11 +100,11 @@ class BodyPartSelector extends HookWidget {
           if (s.contains("left")) {
             final mirroredId =
                 s.replaceAll("left", "right").replaceAll("Left", "Right");
-            macrobodyParts.value[mirroredId] = macrobodyParts.value[s];
+            macrobodyParts.value[mirroredId] = macrobodyParts.value[s]!;
           } else if (s.contains("right")) {
             final mirroredId =
                 s.replaceAll("right", "left").replaceAll("Right", "Left");
-            macrobodyParts.value[mirroredId] = macrobodyParts.value[s];
+            macrobodyParts.value[mirroredId] = macrobodyParts.value[s]!;
           }
         }
       }
@@ -135,7 +135,7 @@ class BodyPartSelector extends HookWidget {
               // ),
               onTap: (s) {
                 // print('Selected ID: $bodyParts');
-                onSelectionUpdated?.call(handleSelectionUpdated(s,
+                onSelectionUpdated.call(handleSelectionUpdated(s,
                     macrobodyParts: macrobodyParts,
                     s: s,
                     value: macrobodyParts.value[s]!,

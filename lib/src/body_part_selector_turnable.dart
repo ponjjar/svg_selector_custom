@@ -9,7 +9,9 @@ export 'package:rotation_stage/rotation_stage.dart';
 class BodyPartSelectorTurnable extends StatelessWidget {
   final List<String>? bodypartsID;
   // final BodyParts bodyParts;
-  final Function(List<bool>)? onSelectionUpdated;
+  final Function(
+    Map<String, bool> selection,
+  ) onSelectionUpdated;
   final bool mirrored;
   final EdgeInsets padding;
   final RotationStageLabelData? labelData;
@@ -17,7 +19,7 @@ class BodyPartSelectorTurnable extends StatelessWidget {
   const BodyPartSelectorTurnable(
       {super.key,
       //  required this.bodyParts,
-      this.onSelectionUpdated,
+      required this.onSelectionUpdated,
       this.mirrored = false,
       this.padding = EdgeInsets.zero,
       this.labelData,

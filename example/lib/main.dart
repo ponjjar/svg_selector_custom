@@ -23,16 +23,16 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
   final String title;
+
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  BodyParts _bodyParts = const BodyParts();
+  List<bool> _bodyParts = List.filled(9, false);
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +42,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SafeArea(
         child: BodyPartSelectorTurnable(
-          bodyParts: _bodyParts,
-          onSelectionUpdated: (p) => setState(() => _bodyParts = p),
+          onSelectionUpdated: (selection) {
+            setState(() {
+              _bodyParts = selection;
+            });
+          },
           labelData: const RotationStageLabelData(
-            front: 'Vorne',
-            left: 'Links',
-            right: 'Rechts',
-            back: 'Hinten',
+            front: 'Frente',
+            left: 'Esquerda',
+            right: 'Direita',
+            back: 'Costas',
           ),
         ),
       ),

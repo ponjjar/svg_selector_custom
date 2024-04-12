@@ -1,7 +1,5 @@
-import 'package:body_part_selector/src/body_part_selector.dart';
-import 'package:body_part_selector/src/model/body_side.dart';
+import 'package:body_part_selector/body_part_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:rotation_stage/rotation_stage.dart';
 
 export 'package:rotation_stage/rotation_stage.dart';
 
@@ -9,21 +7,26 @@ class BodyPartSelectorTurnable extends StatelessWidget {
   final List<String>? bodypartsID;
   // final BodyParts bodyParts;
   final Function(
-    Map<String, bool> selection,
+    dynamic bodyparts,
   ) onSelectionUpdated;
   final bool mirrored;
   final EdgeInsets padding;
   final RotationStageLabelData? labelData;
   final Map<String, String>? bodypartsImage;
+  final BodyParts bodyParts;
+  final Function(Map<String, bool> p) onSelectionStateUpdate;
   const BodyPartSelectorTurnable(
-      {super.key,
-      //  required this.bodyParts,
-      required this.onSelectionUpdated,
-      this.mirrored = false,
-      this.padding = EdgeInsets.zero,
-      this.labelData,
-      this.bodypartsID,
-      this.bodypartsImage});
+    this.bodyParts, {
+    super.key,
+    //  required this.bodyParts,
+    required this.onSelectionUpdated,
+    required this.onSelectionStateUpdate,
+    this.mirrored = false,
+    this.padding = EdgeInsets.zero,
+    this.labelData,
+    this.bodypartsID,
+    this.bodypartsImage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +37,8 @@ class BodyPartSelectorTurnable extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: BodyPartSelector(
             bodypartsImage: bodypartsImage,
-            bodypartsID: (bodypartsID != null && bodypartsID!.isNotEmpty)
-                ? bodypartsID!
-                : [
-                    'MACRO_BP_FACE',
-                    'MACRO_BP_NECK',
-                    'MACRO_BP_UPPER_ARM',
-                    'MACRO_BP_FOREARM',
-                    'MACRO_BP_CHEST',
-                    'MACRO_BP_ABDOMEN',
-                    'MACRO_BP_UPPER_LEG',
-                    'MACRO_BP_LOWER_LEG',
-                    'MACRO_BP_HIP',
-                  ],
+            bodyParts: bodyParts,
+            bodypartsID: bodypartsID!,
             side: side.map(
               front: BodySide.front,
               left: BodySide.left,
@@ -55,6 +47,7 @@ class BodyPartSelectorTurnable extends StatelessWidget {
             ),
             //  bodyParts: bodyParts,
             onSelectionUpdated: onSelectionUpdated,
+            onSelectionStateUpdate: onSelectionStateUpdate,
             mirrored: mirrored,
           ),
         ),

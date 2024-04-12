@@ -44,6 +44,9 @@ class BodyParts with _$BodyParts {
 
     // ignore: non_constant_identifier_names
     @Default(false) bool MACRO_BP_HIP,
+
+    // ignore: non_constant_identifier_names
+    @Default(false) bool MACRO_BP_BUTTOCKS,
   }) = _BodyParts;
 
   factory BodyParts.fromJson(Map<String, dynamic> json) =>

@@ -17,6 +17,7 @@ _$_BodyParts _$$_BodyPartsFromJson(Map<String, dynamic> json) => _$_BodyParts(
       MACRO_BP_UPPER_LEG: json['MACRO_BP_UPPER_LEG'] as bool? ?? false,
       MACRO_BP_LOWER_LEG: json['MACRO_BP_LOWER_LEG'] as bool? ?? false,
       MACRO_BP_HIP: json['MACRO_BP_HIP'] as bool? ?? false,
+      MACRO_BP_BUTTOCKS: json['MACRO_BP_BUTTOCKS'] as bool? ?? false,
     );
 
 // ignore: non_constant_identifier_names
@@ -31,4 +32,5 @@ Map<String, dynamic> _$$_BodyPartsToJson(_$_BodyParts instance) =>
       'MACRO_BP_UPPER_LEG': instance.MACRO_BP_UPPER_LEG,
       'MACRO_BP_LOWER_LEG': instance.MACRO_BP_LOWER_LEG,
       'MACRO_BP_HIP': instance.MACRO_BP_HIP,
+      'MACRO_BP_BUTTOCKS': instance.MACRO_BP_BUTTOCKS,
     };

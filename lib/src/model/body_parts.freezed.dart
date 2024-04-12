@@ -32,6 +32,7 @@ abstract class $BodyPartsCopyWith<$Res> {
     bool MACRO_BP_UPPER_LEG,
     bool MACRO_BP_LOWER_LEG,
     bool MACRO_BP_HIP,
+    bool MACRO_BP_BUTTOCKS,
   });
 }
 
@@ -51,6 +52,7 @@ abstract class _$$_BodyPartsCopyWith<$Res> implements $BodyPartsCopyWith<$Res> {
     bool MACRO_BP_UPPER_LEG,
     bool MACRO_BP_LOWER_LEG,
     bool MACRO_BP_HIP,
+    bool MACRO_BP_BUTTOCKS,
   });
 }
 
@@ -86,6 +88,10 @@ class _$_BodyParts extends _BodyParts {
   @override
   @JsonKey()
   final bool MACRO_BP_HIP;
+  @override
+  @JsonKey()
+  final bool MACRO_BP_BUTTOCKS;
+
   const _$_BodyParts({
     this.MACRO_BP_FACE = false,
     this.MACRO_BP_NECK = false,
@@ -96,6 +102,7 @@ class _$_BodyParts extends _BodyParts {
     this.MACRO_BP_UPPER_LEG = false,
     this.MACRO_BP_LOWER_LEG = false,
     this.MACRO_BP_HIP = false,
+    this.MACRO_BP_BUTTOCKS = false,
   }) : super._();
   factory _$_BodyParts.fromJson(Map<String, dynamic> json) =>
       _$$_BodyPartsFromJson(json);
@@ -122,6 +129,7 @@ class _$_BodyParts extends _BodyParts {
         const DeepCollectionEquality().hash(MACRO_BP_UPPER_LEG),
         const DeepCollectionEquality().hash(MACRO_BP_LOWER_LEG),
         const DeepCollectionEquality().hash(MACRO_BP_HIP),
+        const DeepCollectionEquality().hash(MACRO_BP_BUTTOCKS),
       ]);
 
   @override
@@ -151,7 +159,9 @@ class _$_BodyParts extends _BodyParts {
             const DeepCollectionEquality()
                 .equals(other.MACRO_BP_LOWER_LEG, MACRO_BP_LOWER_LEG) &&
             const DeepCollectionEquality()
-                .equals(other.MACRO_BP_HIP, MACRO_BP_HIP));
+                .equals(other.MACRO_BP_HIP, MACRO_BP_HIP) &&
+            const DeepCollectionEquality()
+                .equals(other.MACRO_BP_BUTTOCKS, MACRO_BP_BUTTOCKS));
   }
 
   @override
@@ -171,6 +181,7 @@ mixin _$BodyParts {
   $BodyPartsCopyWith<BodyParts> get copyWith =>
       throw _privateConstructorUsedError;
   bool get MACRO_BP_ABDOMEN => throw _privateConstructorUsedError;
+  bool get MACRO_BP_BUTTOCKS => throw _privateConstructorUsedError;
   bool get MACRO_BP_CHEST => throw _privateConstructorUsedError;
   bool get MACRO_BP_FACE => throw _privateConstructorUsedError;
   bool get MACRO_BP_FOREARM => throw _privateConstructorUsedError;
@@ -202,6 +213,7 @@ class _$BodyPartsCopyWithImpl<$Res> implements $BodyPartsCopyWith<$Res> {
     Object? MACRO_BP_UPPER_LEG = freezed,
     Object? MACRO_BP_LOWER_LEG = freezed,
     Object? MACRO_BP_HIP = freezed,
+    Object? MACRO_BP_BUTTOCKS = freezed,
   }) {
     return _then(_value.copyWith(
       MACRO_BP_FACE: MACRO_BP_FACE == freezed
@@ -240,6 +252,10 @@ class _$BodyPartsCopyWithImpl<$Res> implements $BodyPartsCopyWith<$Res> {
           ? _value.MACRO_BP_HIP
           : MACRO_BP_HIP // ignore: cast_nullable_to_non_nullable
               as bool,
+      MACRO_BP_BUTTOCKS: MACRO_BP_BUTTOCKS == freezed
+          ? _value.MACRO_BP_BUTTOCKS
+          : MACRO_BP_BUTTOCKS // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -265,6 +281,7 @@ class __$$_BodyPartsCopyWithImpl<$Res> extends _$BodyPartsCopyWithImpl<$Res>
     Object? MACRO_BP_UPPER_LEG = freezed,
     Object? MACRO_BP_LOWER_LEG = freezed,
     Object? MACRO_BP_HIP = freezed,
+    Object? MACRO_BP_BUTTOCKS = freezed,
   }) {
     return _then(_$_BodyParts(
       MACRO_BP_FACE: MACRO_BP_FACE == freezed
@@ -303,6 +320,10 @@ class __$$_BodyPartsCopyWithImpl<$Res> extends _$BodyPartsCopyWithImpl<$Res>
           ? _value.MACRO_BP_HIP
           : MACRO_BP_HIP // ignore: cast_nullable_to_non_nullable
               as bool,
+      MACRO_BP_BUTTOCKS: MACRO_BP_BUTTOCKS == freezed
+          ? _value.MACRO_BP_BUTTOCKS
+          : MACRO_BP_BUTTOCKS // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -318,6 +339,7 @@ abstract class _BodyParts extends BodyParts {
     final bool MACRO_BP_UPPER_LEG,
     final bool MACRO_BP_LOWER_LEG,
     final bool MACRO_BP_HIP,
+    final bool MACRO_BP_BUTTOCKS,
   }) = _$_BodyParts;
   factory _BodyParts.fromJson(Map<String, dynamic> json) =
       _$_BodyParts.fromJson;

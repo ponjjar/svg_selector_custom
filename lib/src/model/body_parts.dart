@@ -19,34 +19,34 @@ class BodyParts with _$BodyParts {
 
   const factory BodyParts({
     // ignore: non_constant_identifier_names
-    @Default(false) bool MACRO_BP_FACE,
+    // @Default(false) bool MACRO_BP_FACE,
+
+    // // ignore: non_constant_identifier_names
+    // @Default(false) bool MACRO_BP_NECK,
+
+    // // ignore: non_constant_identifier_names
+    // @Default(false) bool MACRO_BP_UPPER_ARM,
+
+    // // ignore: non_constant_identifier_names
+    // @Default(false) bool MACRO_BP_FOREARM,
+
+    // // ignore: non_constant_identifier_names
+    // @Default(false) bool MACRO_BP_CHEST,
+
+    // // ignore: non_constant_identifier_names
+    // @Default(false) bool MACRO_BP_ABDOMEN,
+
+    // // ignore: non_constant_identifier_names
+    // @Default(false) bool MACRO_BP_UPPER_LEG,
+
+    // // ignore: non_constant_identifier_names
+    // @Default(false) bool MACRO_BP_LOWER_LEG,
+
+    // // ignore: non_constant_identifier_names
+    // @Default(false) bool MACRO_BP_HIP,
 
     // ignore: non_constant_identifier_names
-    @Default(false) bool MACRO_BP_NECK,
-
-    // ignore: non_constant_identifier_names
-    @Default(false) bool MACRO_BP_UPPER_ARM,
-
-    // ignore: non_constant_identifier_names
-    @Default(false) bool MACRO_BP_FOREARM,
-
-    // ignore: non_constant_identifier_names
-    @Default(false) bool MACRO_BP_CHEST,
-
-    // ignore: non_constant_identifier_names
-    @Default(false) bool MACRO_BP_ABDOMEN,
-
-    // ignore: non_constant_identifier_names
-    @Default(false) bool MACRO_BP_UPPER_LEG,
-
-    // ignore: non_constant_identifier_names
-    @Default(false) bool MACRO_BP_LOWER_LEG,
-
-    // ignore: non_constant_identifier_names
-    @Default(false) bool MACRO_BP_HIP,
-
-    // ignore: non_constant_identifier_names
-    @Default(false) bool MACRO_BP_BUTTOCKS,
+    @Default(false) bool REFRESH_ALL,
   }) = _BodyParts;
 
   factory BodyParts.fromJson(Map<String, dynamic> json) =>

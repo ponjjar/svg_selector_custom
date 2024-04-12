@@ -6,20 +6,22 @@ export 'package:rotation_stage/rotation_stage.dart';
 class BodyPartSelectorTurnable extends StatelessWidget {
   final List<String>? bodypartsID;
   // final BodyParts bodyParts;
-  final Function(
-    dynamic bodyparts,
-  ) onSelectionUpdated;
+  // final Function(
+  //   dynamic bodyparts,
+  // ) onSelectionUpdated;
   final bool mirrored;
   final EdgeInsets padding;
   final RotationStageLabelData? labelData;
   final Map<String, String>? bodypartsImage;
   final BodyParts bodyParts;
-  final Function(Map<String, bool> p) onSelectionStateUpdate;
+  final Function(
+    Map<String, bool> p,
+    BodyParts bodyParts,
+  ) onSelectionStateUpdate;
   const BodyPartSelectorTurnable(
     this.bodyParts, {
     super.key,
     //  required this.bodyParts,
-    required this.onSelectionUpdated,
     required this.onSelectionStateUpdate,
     this.mirrored = false,
     this.padding = EdgeInsets.zero,
@@ -45,8 +47,8 @@ class BodyPartSelectorTurnable extends StatelessWidget {
               back: BodySide.back,
               right: BodySide.right,
             ),
+
             //  bodyParts: bodyParts,
-            onSelectionUpdated: onSelectionUpdated,
             onSelectionStateUpdate: onSelectionStateUpdate,
             mirrored: mirrored,
           ),

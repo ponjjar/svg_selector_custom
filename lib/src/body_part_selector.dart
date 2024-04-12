@@ -12,7 +12,6 @@ class BodyPartSelector extends HookWidget {
   final BodySide side;
 
   final BodyParts bodyParts;
-  final void Function(dynamic selection)? onSelectionUpdated;
   final bool mirrored;
 
   final bool singleSelection;
@@ -23,14 +22,14 @@ class BodyPartSelector extends HookWidget {
   final Color? unselectedOutlineColor;
   final List<String> bodypartsID;
   final Map<String, String>? bodypartsImage;
-  final Function(Map<String, bool> p) onSelectionStateUpdate;
+  final Function(Map<String, bool> p, BodyParts bodyParts)
+      onSelectionStateUpdate;
   const BodyPartSelector({
     super.key,
     this.bodypartsImage,
     required this.onSelectionStateUpdate,
     required this.side,
     required this.bodyParts,
-    required this.onSelectionUpdated,
     this.mirrored = false,
     this.singleSelection = false,
     this.selectedColor,
@@ -145,9 +144,9 @@ class BodyPartSelector extends HookWidget {
                     value: macrobodyParts.value[s] ?? false,
                     mirrored: mirrored,
                     singleSelection: singleSelection);
-                onSelectionStateUpdate(handleSelection);
-                onSelectionUpdated
-                    ?.call(bodyParts.withToggledId(s, mirror: mirrored));
+                onSelectionStateUpdate.call(handleSelection,
+                    BodyParts(REFRESH_ALL: !bodyParts.REFRESH_ALL));
+
                 macrobodyParts.value = handleSelection;
               },
               context: context,

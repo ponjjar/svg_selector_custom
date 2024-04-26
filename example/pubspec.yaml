@@ -18,6 +18,7 @@ dependencies:
   body_part_selector:
     path: ../
   cupertino_icons: ^1.0.2
+  flutter_hooks: ^0.20.5
 
 dev_dependencies:
   flutter_test:

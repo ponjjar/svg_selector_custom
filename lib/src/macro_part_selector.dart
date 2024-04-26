@@ -1,73 +1,54 @@
 import 'dart:math';
 
-import 'package:body_part_selector/src/model/body_parts.dart';
 import 'package:body_part_selector/src/model/body_side.dart';
 import 'package:body_part_selector/src/service/svg_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:touchable/touchable.dart';
 
-class BodyPartSelector extends HookWidget {
+class MacroPartSelector extends StatelessWidget {
   final BodySide side;
+  // final MacroParts bodyParts;
 
-  final BodyParts bodyParts;
   final bool mirrored;
-
   final bool singleSelection;
-  final Color? selectedColor;
 
+  final Color? selectedColor;
   final Color? unselectedColor;
+
   final Color? selectedOutlineColor;
   final Color? unselectedOutlineColor;
-  final List<String> bodypartsID;
-  final Map<String, String>? bodypartsImage;
-  final Function(Map<String, bool> p, BodyParts bodyParts)
-      onSelectionStateUpdate;
-  const BodyPartSelector({
+  final Map<String, bool> macropartsID;
+  final Map<String, String>? macropartsImage;
+  final Function(Map<String, bool> p) onSelectionStateUpdate;
+  const MacroPartSelector(
+    this.macropartsID, {
     super.key,
-    this.bodypartsImage,
+    this.macropartsImage,
+    //   required this.bodyParts,
     required this.onSelectionStateUpdate,
     required this.side,
-    required this.bodyParts,
     this.mirrored = false,
     this.singleSelection = false,
     this.selectedColor,
     this.unselectedColor,
     this.selectedOutlineColor,
     this.unselectedOutlineColor,
-    required this.bodypartsID,
   });
 
   @override
   Widget build(BuildContext context) {
-    final macroBodyParts = useState(
-      bodypartsID.isEmpty
-          ? {
-              'MACRO_BP_FACE': false,
-              'MACRO_BP_NECK': false,
-              'MACRO_BP_UPPER_ARM': false,
-              'MACRO_BP_FOREARM': false,
-              'MACRO_BP_CHEST': false,
-              'MACRO_BP_ABDOMEN': false,
-              'MACRO_BP_UPPER_LEG': false,
-              'MACRO_BP_LOWER_LEG': false,
-              'MACRO_BP_HIP': false,
-            }
-          : bodypartsID.fold<Map<String, bool>>(
-              {},
-              (map, id) => map..[id] = bodyParts.toJson()[id] ?? false,
-            ),
-    );
+    Map<String, bool> macroMacroParts = macropartsID;
 
-    final svgLoadDrawable = bodypartsImage ??
+    dynamic svgLoadDrawable = macropartsImage ??
         {
           'front': "packages/body_part_selector/m_front.svg",
           'left': "packages/body_part_selector/m_left.svg",
           'back': "packages/body_part_selector/m_back.svg",
           'right': "packages/body_part_selector/m_right.svg",
         };
-    final notifier = SvgService.instance.getSide(side, svgLoadDrawable);
+    SvgService.loadDrawables = svgLoadDrawable;
+    final notifier = SvgService.instance.getSide(side);
 
     return ValueListenableBuilder<DrawableRoot?>(
         valueListenable: notifier,
@@ -77,7 +58,7 @@ class BodyPartSelector extends HookWidget {
               child: CircularProgressIndicator.adaptive(),
             );
           } else {
-            return _buildBody(context, value, macroBodyParts);
+            return _buildBody(context, value, macroMacroParts);
           }
         });
   }
@@ -114,40 +95,38 @@ class BodyPartSelector extends HookWidget {
   }
 
   Widget _buildBody(BuildContext context, DrawableRoot drawable,
-      ValueNotifier<Map<String, bool>> macrobodyParts) {
+      Map<String, bool> macrobodyParts) {
     final colorScheme = Theme.of(context).colorScheme;
     return AnimatedSwitcher(
       duration: kThemeAnimationDuration,
       switchInCurve: Curves.easeOutCubic,
       switchOutCurve: Curves.easeOutCubic,
       child: SizedBox.expand(
-        key: ValueKey(bodyParts),
+        key: ValueKey(macropartsID),
         child: CanvasTouchDetector(
           gesturesToOverride: const [GestureType.onTapDown],
           builder: (context) => CustomPaint(
             painter: _BodyPainter(
               root: drawable,
-              bodyParts: macrobodyParts.value,
+              bodyParts: macrobodyParts,
               // onTap: (s) =>
               // onSelectionUpdated?.call(
               // ),
               onTap: (s) {
-                bodyParts.withToggledId(s, mirror: mirrored);
                 // print('Selected ID: $bodyParts');
                 // onSelectionUpdated?.call(
                 //   bodyParts.withToggledId(s,
                 //       mirror: mirrored, singleSelection: singleSelection),
                 // );
                 var handleSelection = handleSelectionUpdated(s,
-                    macrobodyParts: macrobodyParts.value,
+                    macrobodyParts: macrobodyParts,
                     s: s,
-                    value: macrobodyParts.value[s] ?? false,
+                    value: macrobodyParts[s] ?? false,
                     mirrored: mirrored,
                     singleSelection: singleSelection);
-                onSelectionStateUpdate.call(handleSelection,
-                    BodyParts(REFRESH_ALL: !bodyParts.REFRESH_ALL));
+                onSelectionStateUpdate(handleSelection);
 
-                macrobodyParts.value = handleSelection;
+                //macrobodyParts = handleSelection;
               },
               context: context,
               selectedColor: selectedColor ?? colorScheme.onSecondary,
@@ -168,7 +147,7 @@ class _BodyPainter extends CustomPainter {
 
   final BuildContext context;
   final void Function(String) onTap;
-  final dynamic bodyParts;
+  final Map<String, bool> bodyParts;
   final Color selectedColor;
   final Color unselectedColor;
   final Color unselectedOutlineColor;
@@ -185,7 +164,7 @@ class _BodyPainter extends CustomPainter {
     required this.selectedOutlineColor,
   });
 
-  void drawBodyParts({
+  void drawMacroParts({
     required TouchyCanvas touchyCanvas,
     required Canvas plainCanvas,
     required Size size,
@@ -248,7 +227,7 @@ class _BodyPainter extends CustomPainter {
       final drawables =
           root.children.where((element) => element.hasDrawableContent);
 
-      drawBodyParts(
+      drawMacroParts(
         touchyCanvas: bodyPartsCanvas,
         plainCanvas: canvas,
         size: size,
@@ -258,6 +237,8 @@ class _BodyPainter extends CustomPainter {
     }
   }
 
+  @override
+  bool shouldRebuildSemantics(CustomPainter oldDelegate) => true;
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

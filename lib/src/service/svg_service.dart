@@ -9,31 +9,26 @@ import 'package:flutter_svg/flutter_svg.dart';
 class SvgService {
   static final SvgService _instance = SvgService._();
 
-  static SvgService get instance => _instance;
-
-  final ValueNotifier<DrawableRoot?> _front = ValueNotifier(null);
-
-  final ValueNotifier<DrawableRoot?> _left = ValueNotifier(null);
-  final ValueNotifier<DrawableRoot?> _back = ValueNotifier(null);
-
-  final ValueNotifier<DrawableRoot?> _right = ValueNotifier(null);
-  Map<String, String> loadDrawables = {
+  static Map<String, String> loadDrawables = {
     'front': "packages/body_part_selector/m_front.svg",
     'left': "packages/body_part_selector/m_left.svg",
     'back': "packages/body_part_selector/m_back.svg",
     'right': "packages/body_part_selector/m_right.svg",
   };
 
+  static SvgService get instance => _instance;
+
+  final ValueNotifier<DrawableRoot?> _front = ValueNotifier(null);
+  final ValueNotifier<DrawableRoot?> _left = ValueNotifier(null);
+
+  final ValueNotifier<DrawableRoot?> _back = ValueNotifier(null);
+  final ValueNotifier<DrawableRoot?> _right = ValueNotifier(null);
+
   SvgService._() {
-    _init(
-      loadDrawables,
-    );
+    _init();
   }
 
-  ValueNotifier<DrawableRoot?> getSide(
-      BodySide side, Map<String, String> newLoadDrawables) {
-    loadDrawables = newLoadDrawables;
-
+  ValueNotifier<DrawableRoot?> getSide(BodySide side) {
     return side.map(
       front: _front,
       left: _left,
@@ -42,10 +37,9 @@ class SvgService {
     );
   }
 
-  Future<void> _init(Map<String, String> loadDrawables) async {
+  Future<void> _init() async {
     await Future.wait([
-      for (final side in BodySide.values)
-        _loadDrawable(side, getSide(side, loadDrawables)),
+      for (final side in BodySide.values) _loadDrawable(side, getSide(side)),
     ]);
   }
 

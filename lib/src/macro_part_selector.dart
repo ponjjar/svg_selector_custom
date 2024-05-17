@@ -42,10 +42,10 @@ class MacroPartSelector extends StatelessWidget {
 
     dynamic svgLoadDrawable = macropartsImage ??
         {
-          'front': "packages/body_part_selector/m_front.svg",
-          'left': "packages/body_part_selector/m_left.svg",
-          'back': "packages/body_part_selector/m_back.svg",
-          'right': "packages/body_part_selector/m_right.svg",
+          'front': "packages/svg_selector_custom/m_front.svg",
+          'left': "packages/svg_selector_custom/m_left.svg",
+          'back': "packages/svg_selector_custom/m_back.svg",
+          'right': "packages/svg_selector_custom/m_right.svg",
         };
     SvgService.loadDrawables = svgLoadDrawable;
     final notifier = SvgService.instance.getSide(side);

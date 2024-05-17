@@ -10,10 +10,10 @@ class SvgService {
   static final SvgService _instance = SvgService._();
 
   static Map<String, String> loadDrawables = {
-    'front': "packages/body_part_selector/m_front.svg",
-    'left': "packages/body_part_selector/m_left.svg",
-    'back': "packages/body_part_selector/m_back.svg",
-    'right': "packages/body_part_selector/m_right.svg",
+    'front': "packages/svg_selector_custom/m_front.svg",
+    'left': "packages/svg_selector_custom/m_left.svg",
+    'back': "packages/svg_selector_custom/m_back.svg",
+    'right': "packages/svg_selector_custom/m_right.svg",
   };
 
   static SvgService get instance => _instance;

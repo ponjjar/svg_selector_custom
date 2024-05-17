@@ -1,5 +1,5 @@
-import 'package:body_part_selector/body_part_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:svg_selector_custom/body_part_selector.dart';
 
 export 'package:rotation_stage/rotation_stage.dart';
 

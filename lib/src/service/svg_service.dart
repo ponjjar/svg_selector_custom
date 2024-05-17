@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:body_part_selector/body_part_selector.dart';
-import 'package:body_part_selector/src/model/body_side.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:svg_selector_custom/body_part_selector.dart';
+import 'package:svg_selector_custom/src/model/body_side.dart';
 
 class SvgService {
   static final SvgService _instance = SvgService._();

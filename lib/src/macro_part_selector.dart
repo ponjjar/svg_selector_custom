@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:body_part_selector/src/model/body_side.dart';
-import 'package:body_part_selector/src/service/svg_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:svg_selector_custom/src/model/body_side.dart';
+import 'package:svg_selector_custom/src/service/svg_service.dart';
 import 'package:touchable/touchable.dart';
 
 class MacroPartSelector extends StatelessWidget {

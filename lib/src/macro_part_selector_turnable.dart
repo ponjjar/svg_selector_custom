@@ -33,6 +33,7 @@ class MacroPartsSelectorTurnable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RotationStage(
+      viewportFraction: MediaQuery.of(context).size.width < 600 ? 0.3 : 0.2,
       contentBuilder: (index, side, page) => Padding(
         padding: padding,
         child: Padding(

@@ -1,6 +1,6 @@
-import 'package:body_part_selector/body_part_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:svg_selector_custom/body_part_selector.dart';
 
 void main() {
   runApp(const MyApp());

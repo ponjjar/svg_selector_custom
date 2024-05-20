@@ -18,7 +18,7 @@ dependencies:
   flutter_hooks: ^0.20.3
   rotation_stage:
     git:
-      url: https://github.com/timcreatedit/rotation_stage.git
+      url: https://github.com/Caique-P/rotation_stage.git
       ref: develop #new patch version
 
 dev_dependencies:
